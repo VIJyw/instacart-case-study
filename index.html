@@ -3,290 +3,264 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Household Rules: a grocery swaps case study by Vijay Walunj</title>
-<meta name="description" content="A product case study: letting grocery delivery customers set replacement rules once, so the order that arrives is the order they meant to place.">
+<title>Household Rules: an Instacart product case study by Vijay Walunj</title>
+<meta name="description" content="A product case study: letting grocery customers set replacement rules once, so the order that arrives is the order they meant to place.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Courier+Prime:wght@400;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#FAF6EF;
-  --card:#FFFFFF;
-  --ink:#003D29;
-  --muted:#4F6B5F;
-  --basil:#108910;
-  --basil-soft:#E4F4E2;
-  --lemon:#FF7009;
-  --tomato:#D93A1E;
-  --rule:#E6DFD3;
-  --kale:#003D29;
-  --on-kale:#FAF6EF;
-  --receipt:#FFFEFA;
-  --receipt-ink:#26302B;
-  --sans:"Bricolage Grotesque", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --serif:"Newsreader", Georgia, "Times New Roman", serif;
-  --mono:"Courier Prime", "Courier New", Courier, monospace;
-  color-scheme: light;
-  box-sizing:border-box;
-  padding-top:env(safe-area-inset-top, 0px);
-  padding-bottom:env(safe-area-inset-bottom, 0px);
+  --paper:#FAF6EF; --card:#FFFFFF; --ink:#003D29; --muted:#4F6B5F;
+  --green:#108910; --green-soft:#E4F4E2; --carrot:#FF7009; --carrot-soft:#FFE9D9;
+  --tomato:#D93A1E; --rule:#E6DFD3; --kale:#003D29; --on-kale:#FAF6EF;
+  --receipt:#FFFEFA; --receipt-ink:#26302B;
+  --sans:"Bricolage Grotesque","Segoe UI",system-ui,-apple-system,sans-serif;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --mono:"Courier Prime","Courier New",Courier,monospace;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --paper:#0E1A15; --card:#15241D; --ink:#EDF3EE; --muted:#9DB3A8;
-    --basil:#43C443; --basil-soft:#173322; --lemon:#FF8A33; --tomato:#F07A62;
-    --rule:#24362D; --kale:#072A1E; --on-kale:#FAF6EF; --receipt:#F4F1E8; --receipt-ink:#26302B;
-    color-scheme: dark;
+    --green:#43C443; --green-soft:#173322; --carrot:#FF8A33; --carrot-soft:#3A2414;
+    --tomato:#F07A62; --rule:#24362D; --kale:#072A1E; --on-kale:#FAF6EF; color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
   --paper:#0E1A15; --card:#15241D; --ink:#EDF3EE; --muted:#9DB3A8;
-  --basil:#43C443; --basil-soft:#173322; --lemon:#FF8A33; --tomato:#F07A62;
-  --rule:#24362D; --kale:#072A1E; --on-kale:#FAF6EF; --receipt:#F4F1E8; --receipt-ink:#26302B;
-  color-scheme: dark;
+  --green:#43C443; --green-soft:#173322; --carrot:#FF8A33; --carrot-soft:#3A2414;
+  --tomato:#F07A62; --rule:#24362D; --kale:#072A1E; --on-kale:#FAF6EF; color-scheme:dark;
 }
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-padding-top:env(safe-area-inset-top, 0px); -webkit-text-size-adjust:100%}
-body{
-  margin:0; background:var(--paper); color:var(--ink);
-  font-family:var(--serif); font-size:1.15rem; line-height:1.7;
-  font-optical-sizing:auto;
-}
-img,svg{max-width:100%}
-a{color:var(--basil); text-underline-offset:3px; text-decoration-thickness:1px}
-a:hover{text-decoration-thickness:2px}
-:focus-visible{outline:3px solid var(--basil); outline-offset:3px; border-radius:2px}
-
-.wrap{max-width:1120px; margin:0 auto; padding:0 1.5rem}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:1.13rem;line-height:1.7}
+a{color:var(--green);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--carrot);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 1.5rem}
 .prose{max-width:680px}
-.prose p{margin:0 0 1.15em}
+.prose p{margin:0 0 1.1em}
+h1,h2,h3,h4,h5{font-family:var(--sans);line-height:1.12;letter-spacing:-0.01em;margin:0}
+h2{font-size:clamp(1.85rem,3.6vw,2.55rem);font-weight:700;margin-bottom:1.1rem;max-width:22ch}
+h3{font-size:1.3rem;font-weight:700;margin:2.4rem 0 .7rem}
+.label{font-family:var(--sans);font-size:1rem;color:var(--muted);margin:0 0 .5rem;font-weight:600}
+.note{font-family:var(--sans);font-size:.88rem;color:var(--muted);line-height:1.5}
+button{font:inherit;cursor:pointer}
 
-h1,h2,h3,h4{font-family:var(--sans); line-height:1.1; letter-spacing:-0.01em; margin:0}
-h2{font-size:clamp(1.9rem, 3.6vw, 2.6rem); font-weight:700; margin-bottom:1.1rem; max-width:20ch}
-h3{font-size:1.3rem; font-weight:700; margin:2.2rem 0 .6rem}
-.lead{font-size:1.32rem; line-height:1.55; color:var(--ink)}
-.small{font-family:var(--sans); font-size:.92rem; color:var(--muted); line-height:1.5}
+/* Hero */
+.hero-band{background:var(--kale);color:var(--on-kale);overflow:hidden}
+.top{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.4rem 0 0;font-family:var(--sans);font-size:.95rem}
+.top nav{display:flex;gap:1.2rem;flex-wrap:wrap}
+.top nav a{color:rgba(250,246,239,.8);text-decoration:none}
+.top nav a:hover{color:#fff;text-decoration:underline}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center;padding:3.2rem 0 4.2rem}
+.kicker{font-family:var(--sans);font-weight:700;color:#FF8A33;margin:0 0 1rem;font-size:1.02rem}
+.hero h1{font-size:clamp(2.6rem,6vw,4.4rem);font-weight:800;letter-spacing:-0.03em;line-height:.98;margin-bottom:1.3rem}
+.dek{font-size:1.3rem;line-height:1.5;max-width:36ch;margin:0 0 1.8rem;color:rgba(250,246,239,.92)}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem 2rem;margin:0;font-family:var(--sans);font-size:.95rem;max-width:520px}
+.facts dt{color:rgba(250,246,239,.68);font-size:.84rem}
+.facts dd{margin:0;font-weight:600;line-height:1.35}
 
-/* ---------- Top bar ---------- */
-.top{display:flex; justify-content:space-between; align-items:baseline; gap:1rem; padding:1.6rem 0 0; font-family:var(--sans); font-size:.95rem}
-.top strong{font-weight:700}
-.top span{color:var(--muted)}
-.hero-band{background:var(--kale); color:var(--on-kale)}
-.hero-band .top span, .hero-band .facts dt{color:rgba(250,246,239,.72)}
-.hero-band .kicker{color:#FF8A33}
-.hero-band + section{border-top:0}
+.stage{position:relative;justify-self:center;width:100%;max-width:400px;padding:0 0 1rem}
+.bag{position:absolute;left:-70px;bottom:-30px;width:210px;opacity:.95;pointer-events:none}
+.toggle{display:inline-flex;background:rgba(250,246,239,.12);border-radius:99px;padding:4px;margin:0 0 1rem;position:relative;z-index:2}
+.toggle button{border:0;background:transparent;color:var(--on-kale);padding:.45rem .95rem;border-radius:99px;font-family:var(--sans);font-weight:600;font-size:.88rem}
+.toggle button[aria-pressed="true"]{background:#FF8A33;color:#1d1408}
+.receipt{position:relative;z-index:1;background:var(--receipt);color:var(--receipt-ink);font-family:var(--mono);font-size:.86rem;line-height:1.5;padding:1.5rem 1.35rem 2.1rem;transform:rotate(1.4deg);box-shadow:0 22px 44px -20px rgba(0,0,0,.55);
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 12px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/16px 12px repeat-x;
+  mask:linear-gradient(#000 0 0) top/100% calc(100% - 12px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/16px 12px repeat-x}
+.r-head{text-align:center;border-bottom:1px dashed #9aa39d;padding-bottom:.7rem;margin-bottom:.7rem}
+.r-head b{display:block;font-size:1rem}
+.r-line{display:flex;justify-content:space-between;gap:.8rem}
+.r-line+.r-line{margin-top:.3rem}
+.r-sub{padding-left:1rem;font-size:.8rem;color:#5d6862}
+.r-sub.bad{color:#B23A28}.r-sub.ok{color:#0B7A0B}
+.r-total{border-top:1px dashed #9aa39d;margin-top:.8rem;padding-top:.7rem;font-weight:700}
+.sticky{position:absolute;right:-1rem;bottom:-1.4rem;z-index:3;width:178px;background:#FF8A33;color:#1d1408;font-family:var(--sans);font-size:.9rem;line-height:1.3;font-weight:700;padding:.85rem .95rem;transform:rotate(-4deg);box-shadow:0 10px 22px -12px rgba(0,0,0,.5);transition:transform .3s}
+.sticky.happy{background:#9BE39B;transform:rotate(3deg)}
+@media (prefers-reduced-motion: reduce){.sticky{transition:none}}
 
-/* ---------- Hero ---------- */
-.hero{display:grid; grid-template-columns:1.15fr .85fr; gap:3.5rem; align-items:center; padding:3.5rem 0 4.5rem}
-.kicker{font-family:var(--sans); font-size:1rem; color:var(--basil); font-weight:600; margin:0 0 1rem}
-.hero h1{font-size:clamp(2.6rem, 6.2vw, 4.6rem); font-weight:800; letter-spacing:-0.03em; line-height:.98; margin-bottom:1.4rem}
-.hero .dek{font-size:1.35rem; line-height:1.5; max-width:34ch; margin:0 0 2rem}
-.facts{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:1rem 2rem; margin:0; font-family:var(--sans); font-size:.95rem; max-width:520px}
-.facts dt{color:var(--muted); font-size:.85rem}
-.facts dd{margin:0; font-weight:600; line-height:1.35}
+/* Numbers strip */
+.strip{background:var(--card);border-bottom:1px solid var(--rule)}
+.strip .wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.stat{padding:1.6rem 1.2rem 1.5rem;border-right:1px solid var(--rule)}
+.stat:last-child{border-right:0}
+.stat b{display:block;font-family:var(--sans);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.stat span{font-family:var(--sans);font-size:.92rem;color:var(--muted);line-height:1.4;display:block;margin-top:.2rem}
+.stat small{font-family:var(--sans);font-size:.76rem;color:var(--green);font-weight:600}
 
-/* Receipt */
-.receipt-wrap{position:relative; justify-self:center; width:100%; max-width:360px}
-.receipt{
-  background:var(--receipt); color:var(--receipt-ink);
-  font-family:var(--mono); font-size:.86rem; line-height:1.5;
-  padding:1.6rem 1.4rem 2.2rem; transform:rotate(1.6deg);
-  box-shadow:0 1px 0 rgba(0,0,0,.04), 0 18px 40px -18px rgba(20,40,30,.35);
-  -webkit-mask: linear-gradient(#000 0 0) top/100% calc(100% - 12px) no-repeat,
-    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom/16px 12px repeat-x;
-          mask: linear-gradient(#000 0 0) top/100% calc(100% - 12px) no-repeat,
-    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom/16px 12px repeat-x;
-}
-.receipt .r-head{text-align:center; border-bottom:1px dashed #9aa39d; padding-bottom:.8rem; margin-bottom:.8rem}
-.receipt .r-head b{display:block; font-size:1rem}
-.r-line{display:flex; justify-content:space-between; gap:.8rem}
-.r-line + .r-line{margin-top:.35rem}
-.r-sub{padding-left:1rem; font-size:.8rem; color:#5d6862}
-.r-sub.bad{color:#B23A28}
-.r-sub.ok{color:#2E6A4F}
-.r-item{position:relative}
-.strike{position:relative; display:inline-block}
-.strike::after{
-  content:""; position:absolute; left:-2px; right:-2px; top:55%; height:2px; background:#B23A28;
-  transform-origin:left; transform:scaleX(1);
-}
-@media (prefers-reduced-motion: no-preference){
-  .strike::after{animation:strike .7s 0.9s cubic-bezier(.6,.1,.3,1) both}
-  @keyframes strike{from{transform:scaleX(0)} to{transform:scaleX(1)}}
-}
-.r-total{border-top:1px dashed #9aa39d; margin-top:.9rem; padding-top:.8rem; font-weight:700}
-.sticky-note{
-  position:absolute; right:-1.2rem; bottom:-1.6rem; width:170px;
-  background:var(--lemon); color:#2b2a1d; font-family:var(--sans); font-size:.9rem; line-height:1.3; font-weight:600;
-  padding:.9rem .95rem; transform:rotate(-4deg); box-shadow:0 10px 22px -12px rgba(0,0,0,.4);
-}
+section{padding:4.3rem 0;border-top:1px solid var(--rule)}
+.strip+section{border-top:0}
 
-/* ---------- Sections ---------- */
-section{padding:4.5rem 0; border-top:1px solid var(--rule)}
-.label{font-family:var(--sans); font-size:.95rem; color:var(--muted); margin:0 0 .5rem}
+/* XYZ impact */
+.xyz{display:grid;gap:1rem;margin-top:1.6rem}
+.xyz-item{display:grid;grid-template-columns:56px 1fr;gap:1.1rem;background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:1.3rem 1.4rem;align-items:start}
+.xyz-emoji{font-size:2rem;line-height:1;width:56px;height:56px;border-radius:14px;background:var(--green-soft);display:grid;place-items:center}
+.xyz-item p{margin:0;font-size:1.08rem;line-height:1.6}
+.xyz-item strong{font-family:var(--sans);font-weight:700}
+.x{color:var(--green);font-family:var(--sans);font-weight:700}
+.y{background:var(--carrot-soft);padding:0 .25rem;border-radius:4px}
+.legend{display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:1rem;font-family:var(--sans);font-size:.88rem;color:var(--muted)}
+.legend i{font-style:normal}
 
-/* Summary */
-.summary{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:0; border:1px solid var(--rule); background:var(--card); border-radius:14px; overflow:hidden; margin-top:1.5rem}
-.summary div{padding:1.4rem 1.3rem; border-right:1px solid var(--rule)}
-.summary div:last-child{border-right:0}
-.summary h4{font-size:1rem; margin-bottom:.5rem; color:var(--basil)}
-.summary p{margin:0; font-size:1rem; line-height:1.55}
+/* Calculator */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:1.8rem;background:var(--card);border:1px solid var(--rule);border-radius:18px;padding:1.8rem}
+.slider{margin-bottom:1.25rem;font-family:var(--sans)}
+.slider label{display:flex;justify-content:space-between;font-size:.95rem;font-weight:600;margin-bottom:.35rem}
+.slider output{color:var(--green);font-weight:800}
+.slider input{width:100%;accent-color:var(--carrot)}
+.slider .note{margin-top:.15rem}
+.results{display:grid;gap:.9rem;align-content:start}
+.res{border-radius:14px;padding:1.1rem 1.2rem;background:var(--paper);border:1px solid var(--rule)}
+.res b{display:block;font-family:var(--sans);font-size:1.9rem;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.res span{font-family:var(--sans);font-size:.9rem;color:var(--muted)}
+.res.hi{background:var(--kale);color:var(--on-kale);border-color:var(--kale)}
+.res.hi span{color:rgba(250,246,239,.75)}
+.bar{height:12px;border-radius:99px;background:var(--rule);overflow:hidden;margin-top:.6rem;display:flex}
+.bar i{display:block;height:100%;background:var(--tomato);transition:width .3s}
+.bar i.g{background:var(--green)}
 
-/* Today flow */
-.flow{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:1rem; margin:2rem 0 1rem}
-.option{background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:1.1rem 1.2rem}
-.option h4{font-size:1.02rem; margin-bottom:.35rem}
-.option p{margin:0; font-size:.98rem; line-height:1.5; color:var(--muted)}
-.option.default{border-color:var(--basil); box-shadow:inset 0 0 0 1px var(--basil)}
-.option .tag{display:inline-block; font-family:var(--sans); font-size:.78rem; font-weight:600; background:var(--basil-soft); color:var(--basil); padding:.1rem .5rem; border-radius:99px; margin-bottom:.5rem}
+/* Flow + breaks */
+.flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1.6rem 0 1rem}
+.option{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:1.1rem 1.2rem}
+.option.default{border:2px solid var(--green)}
+.option .em{font-size:1.6rem}
+.option h4{font-size:1.04rem;margin:.4rem 0 .3rem}
+.option p{margin:0;font-size:.98rem;line-height:1.5;color:var(--muted)}
+.tag{display:inline-block;font-family:var(--sans);font-size:.76rem;font-weight:700;background:var(--green-soft);color:var(--green);padding:.1rem .55rem;border-radius:99px;margin-left:.3rem;vertical-align:middle}
+.breaks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:1.8rem}
+.break{border-top:4px solid var(--carrot);background:var(--card);border-radius:0 0 14px 14px;padding:1.2rem 1.2rem 1.3rem;border-left:1px solid var(--rule);border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.break .em{font-size:1.7rem}
+.break h4{font-size:1.06rem;margin:.4rem 0 .35rem}
+.break p{margin:0;font-size:.98rem;line-height:1.55}
+.pull{font-family:var(--sans);font-weight:800;font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:1.2;letter-spacing:-.015em;max-width:26ch;margin:3.2rem 0 .8rem}
+.pull-note{max-width:640px;color:var(--muted)}
 
-.breaks{margin:2rem 0 0; padding:0; list-style:none; max-width:680px}
-.breaks li{padding:1.2rem 0 1.2rem 1.4rem; border-left:3px solid var(--lemon); margin-bottom:1rem; background:none}
-.breaks li h4{font-size:1.1rem; margin-bottom:.35rem}
-.breaks li p{margin:0}
-
-.pull{font-family:var(--sans); font-weight:700; font-size:clamp(1.6rem, 3.4vw, 2.3rem); line-height:1.2; letter-spacing:-0.015em; max-width:26ch; margin:3rem 0 1rem}
-.pull-note{max-width:620px; color:var(--muted)}
-
-/* People */
-.people{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:1.2rem; margin-top:2rem}
-.person{background:var(--card); border:1px solid var(--rule); border-radius:14px; padding:1.4rem}
-.person.secondary{background:transparent; border-style:dashed}
-.avatar{width:44px; height:44px; border-radius:50%; display:grid; place-items:center; font-family:var(--sans); font-weight:700; background:var(--basil-soft); color:var(--basil); margin-bottom:.9rem}
-.person h4{font-size:1.15rem}
-.person .role{font-family:var(--sans); font-size:.88rem; color:var(--muted); margin:.15rem 0 .9rem}
-.person p{font-size:1rem; line-height:1.55; margin:0 0 .8rem}
-.person blockquote{margin:0; padding:.7rem .9rem; background:var(--paper); border-radius:8px; font-style:italic; font-size:1rem; line-height:1.5}
+/* Personas tabs */
+.tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin:1.6rem 0 0}
+.tabs button{border:1px solid var(--rule);background:var(--card);color:var(--ink);border-radius:99px;padding:.55rem 1.05rem;font-family:var(--sans);font-weight:600;font-size:.95rem}
+.tabs button[aria-selected="true"]{background:var(--kale);color:var(--on-kale);border-color:var(--kale)}
+.panel{margin-top:1rem;background:var(--card);border:1px solid var(--rule);border-radius:18px;padding:1.6rem;display:grid;grid-template-columns:120px 1fr 1fr;gap:1.6rem;align-items:start}
+.panel[hidden]{display:none}
+.face{width:110px;height:110px;border-radius:28px;display:grid;place-items:center;font-size:3.4rem;background:var(--carrot-soft)}
+.panel h4{font-size:1.25rem;margin-bottom:.2rem}
+.panel .role{font-family:var(--sans);font-size:.9rem;color:var(--muted);margin:0 0 .8rem}
+.panel p{margin:0 0 .7rem;font-size:1.02rem;line-height:1.55}
+.panel blockquote{margin:0;padding:.8rem 1rem;background:var(--paper);border-left:4px solid var(--carrot);border-radius:0 10px 10px 0;font-style:italic}
+.panel ul{margin:0;padding-left:1.1rem;font-size:1rem;line-height:1.55}
+.panel li{margin-bottom:.35rem}
+.panel h5{font-size:.95rem;margin-bottom:.4rem;color:var(--green)}
 
 /* Tables */
-.table-scroll{overflow-x:auto; margin:1.8rem 0; border:1px solid var(--rule); border-radius:12px; background:var(--card)}
-table{border-collapse:collapse; width:100%; min-width:720px; font-family:var(--sans); font-size:.95rem; line-height:1.45}
-th,td{text-align:left; vertical-align:top; padding:.9rem 1rem; border-bottom:1px solid var(--rule)}
-th{font-weight:600; color:var(--muted); font-size:.85rem; background:var(--paper)}
+.table-scroll{overflow-x:auto;margin:1.6rem 0;border:1px solid var(--rule);border-radius:14px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:720px;font-family:var(--sans);font-size:.94rem;line-height:1.45}
+th,td{text-align:left;vertical-align:top;padding:.85rem 1rem;border-bottom:1px solid var(--rule)}
+th{font-weight:600;color:var(--muted);font-size:.84rem;background:var(--paper)}
 tr:last-child td{border-bottom:0}
-td strong{font-weight:700}
-.risk{display:inline-block; padding:.05rem .55rem; border-radius:99px; font-size:.8rem; font-weight:600}
-.risk.high{background:#F7DCD6; color:#8E2B1C}
-.risk.med{background:#F8EEC4; color:#6B5410}
-.risk.low{background:var(--basil-soft); color:var(--basil)}
-:root[data-theme="dark"] .risk.high{background:#3A2320; color:#F2A595}
-:root[data-theme="dark"] .risk.med{background:#3A3420; color:#E9D27A}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]) .risk.high{background:#3A2320; color:#F2A595}
-  :root:not([data-theme="light"]) .risk.med{background:#3A3420; color:#E9D27A}
-}
-tr.chosen td{background:var(--basil-soft)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tr.win td{background:var(--green-soft)}
+tr.cut td{color:var(--muted)}
+.pill{display:inline-block;padding:.05rem .55rem;border-radius:99px;font-size:.78rem;font-weight:700;white-space:nowrap}
+.pill.high{background:#F7DCD6;color:#8E2B1C}.pill.med{background:#FFE9D9;color:#8A3D05}.pill.low{background:var(--green-soft);color:var(--green)}
+.pill.v1{background:var(--kale);color:var(--on-kale)}.pill.later{background:var(--rule);color:var(--muted)}
 
-/* Solution moments + phones */
-.moments{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:2rem; margin-top:2.5rem}
-.moment .step{font-family:var(--sans); font-weight:800; font-size:2.4rem; color:var(--basil); line-height:1}
-.moment h4{font-size:1.15rem; margin:.6rem 0 .4rem}
-.moment p{font-size:1rem; line-height:1.55; margin:0 0 1.2rem}
+/* Rule builder */
+.builder{display:grid;grid-template-columns:1fr 300px;gap:2rem;margin-top:1.8rem;background:var(--card);border:1px solid var(--rule);border-radius:18px;padding:1.8rem;align-items:start}
+.step-h{font-family:var(--sans);font-weight:700;font-size:1rem;margin:0 0 .6rem}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.4rem}
+.chips button{border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:12px;padding:.55rem .85rem;font-family:var(--sans);font-size:.93rem;font-weight:600;text-align:left}
+.chips button[aria-pressed="true"]{border-color:var(--green);background:var(--green-soft);color:var(--ink);box-shadow:inset 0 0 0 1px var(--green)}
+.rule-text{font-family:var(--sans);background:var(--carrot-soft);border-radius:12px;padding:.85rem 1rem;font-weight:600;font-size:.98rem}
+.phone{width:100%;max-width:290px;margin:0 auto;aspect-ratio:9/18.5;background:var(--card);border:10px solid #10201A;border-radius:36px;overflow:hidden;box-shadow:0 26px 44px -26px rgba(0,0,0,.55);display:flex;flex-direction:column;font-family:var(--sans);color:var(--ink)}
+.phone .notch{height:26px;display:flex;justify-content:center;align-items:center}
+.phone .notch i{width:72px;height:6px;border-radius:6px;background:var(--rule)}
+.screen{padding:.4rem .95rem 1rem;flex:1;display:flex;flex-direction:column;gap:.55rem;font-size:.8rem;line-height:1.35;overflow:hidden}
+.screen .meta{color:var(--muted);font-size:.74rem}
+.screen h5{font-size:.98rem}
+.banner{background:#FF8A33;color:#1d1408;border-radius:10px;padding:.55rem .65rem;font-weight:700;font-size:.78rem}
+.opt{display:flex;gap:.55rem;align-items:center;border:1px solid var(--rule);border-radius:10px;padding:.5rem .55rem;transition:opacity .25s}
+.opt .ico{font-size:1.25rem;width:30px;text-align:center}
+.opt b{display:block;font-size:.8rem}
+.opt span{color:var(--muted);font-size:.72rem}
+.opt.no{opacity:.4;text-decoration:line-through}
+.outcome{margin-top:auto;border-radius:99px;padding:.6rem;text-align:center;font-weight:700;background:var(--green);color:#fff;font-size:.82rem}
+.outcome.refund{background:var(--ink);color:var(--paper)}
 
-.phone{
-  width:100%; max-width:270px; aspect-ratio:9/18.5; margin:0 auto;
-  background:var(--card); border:9px solid #1d2521; border-radius:34px; overflow:hidden;
-  box-shadow:0 24px 40px -26px rgba(0,0,0,.5); display:flex; flex-direction:column;
-  font-family:var(--sans); color:var(--ink);
-}
-.phone .bar{height:26px; display:flex; justify-content:center; align-items:center}
-.phone .bar i{display:block; width:70px; height:6px; border-radius:6px; background:var(--rule)}
-.screen{padding:.6rem 1rem 1rem; flex:1; display:flex; flex-direction:column; gap:.6rem; font-size:.82rem; line-height:1.35}
-.screen h5{font-size:1rem; margin:0; font-weight:700}
-.screen .meta{color:var(--muted); font-size:.75rem}
-.chip{border:1px solid var(--rule); border-radius:10px; padding:.55rem .65rem; background:var(--paper)}
-.chip b{display:block; font-size:.82rem}
-.chip span{color:var(--muted); font-size:.74rem}
-.chip.rule{border-left:4px solid var(--basil)}
-.btn{display:block; text-align:center; border-radius:99px; padding:.55rem; font-weight:700; font-size:.82rem}
-.btn.primary{background:var(--basil); color:var(--paper)}
-.btn.ghost{border:1px solid var(--rule); color:var(--ink)}
-.grow{flex:1}
-.swap{display:flex; gap:.5rem; align-items:center}
-.swap .dot{width:34px; height:34px; border-radius:8px; background:var(--basil-soft); flex:none}
-.swap .dot.off{background:var(--rule)}
-.dim{opacity:.45}
-.banner{background:var(--lemon); color:#2b2a1d; border-radius:10px; padding:.55rem .65rem; font-weight:600; font-size:.78rem}
-.covered{display:inline-block; margin-top:.25rem; font-size:.7rem; font-weight:600; color:var(--basil); background:var(--basil-soft); padding:.05rem .45rem; border-radius:99px}
+/* Moments */
+.moments{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.6rem;margin-top:2.2rem}
+.moment{background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:1.4rem}
+.moment .num{font-family:var(--sans);font-weight:800;font-size:2.2rem;color:var(--carrot);line-height:1}
+.moment h4{font-size:1.12rem;margin:.5rem 0 .35rem}
+.moment p{margin:0;font-size:1rem;line-height:1.55}
 
-.rule-types{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:1rem; margin-top:2rem}
-.rule-types div{border-top:3px solid var(--basil); padding-top:.8rem}
-.rule-types h4{font-size:1rem; margin-bottom:.3rem}
-.rule-types p{margin:0; font-size:.98rem; line-height:1.5; color:var(--muted)}
-.rule-types em{color:var(--ink)}
-
-/* Scope */
-.scope{display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:1.8rem}
-.scope > div{background:var(--card); border:1px solid var(--rule); border-radius:14px; padding:1.4rem 1.5rem}
-.scope h4{font-size:1.1rem; margin-bottom:.8rem}
-.scope ul{margin:0; padding-left:1.1rem}
-.scope li{margin-bottom:.55rem; font-size:1.02rem; line-height:1.5}
-.scope .later{background:transparent; border-style:dashed}
+/* Options matrix */
+.scorebar{display:inline-block;height:8px;border-radius:99px;background:var(--green);vertical-align:middle;margin-right:.45rem}
 
 /* Metrics */
-.metric-tree{display:grid; grid-template-columns:1fr; gap:1rem; margin-top:2rem}
-.ns{background:var(--ink); color:var(--paper); border-radius:16px; padding:1.8rem 2rem}
-.ns .small{color:inherit; opacity:.75}
-.ns h3{margin:.3rem 0 .6rem; font-size:clamp(1.5rem, 3vw, 2rem); max-width:24ch}
-.ns p{margin:0; max-width:60ch; font-size:1.05rem}
-.metric-row{display:grid; grid-template-columns:1fr 1fr; gap:1rem}
-.metric-box{background:var(--card); border:1px solid var(--rule); border-radius:14px; padding:1.3rem 1.4rem}
-.metric-box h4{font-size:1.05rem; margin-bottom:.7rem}
-.metric-box ul{margin:0; padding-left:1.1rem}
-.metric-box li{margin-bottom:.5rem; font-size:1rem; line-height:1.5}
-
-.experiment{display:grid; grid-template-columns:180px 1fr; gap:.9rem 2rem; margin:1.8rem 0 0; max-width:820px}
-.experiment dt{font-family:var(--sans); font-weight:700; font-size:.98rem; padding-top:.2rem}
-.experiment dd{margin:0; font-size:1.05rem; line-height:1.6}
+.ns{background:var(--kale);color:var(--on-kale);border-radius:18px;padding:1.9rem 2rem;margin-top:1.6rem;display:grid;grid-template-columns:1.3fr 1fr;gap:2rem;align-items:center}
+.ns h3{margin:.3rem 0 .6rem;font-size:clamp(1.5rem,3vw,2rem)}
+.ns p{margin:0;font-size:1.04rem;color:rgba(250,246,239,.9)}
+.ns .lab{font-family:var(--sans);font-size:.9rem;color:#FF8A33;font-weight:700}
+.gauge{font-family:var(--sans)}
+.gauge .row{display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:.3rem}
+.gauge .track{height:14px;border-radius:99px;background:rgba(250,246,239,.15);overflow:hidden;margin-bottom:1rem}
+.gauge .fill{height:100%;border-radius:99px;background:rgba(250,246,239,.55)}
+.gauge .fill.t{background:#FF8A33}
+.metric-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+.box{background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:1.3rem 1.4rem}
+.box h4{font-size:1.05rem;margin-bottom:.7rem}
+.box ul{margin:0;padding-left:1.1rem}
+.box li{margin-bottom:.5rem;font-size:1rem;line-height:1.5}
+.experiment{display:grid;grid-template-columns:190px 1fr;gap:.9rem 2rem;margin:1.6rem 0 0;max-width:860px}
+.experiment dt{font-family:var(--sans);font-weight:700;font-size:.98rem;padding-top:.15rem}
+.experiment dd{margin:0;font-size:1.04rem;line-height:1.6}
 
 /* Roadmap */
-.roadmap{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:0; margin-top:2rem; position:relative}
-.phase{padding:1.4rem 1.4rem 0 0; border-top:3px solid var(--rule); position:relative}
-.phase::before{content:""; position:absolute; top:-9px; left:0; width:15px; height:15px; border-radius:50%; background:var(--paper); border:3px solid var(--basil)}
-.phase:first-child{border-top-color:var(--basil)}
-.phase:first-child::before{background:var(--basil)}
-.phase .when{font-family:var(--sans); font-size:.88rem; color:var(--muted)}
-.phase h4{font-size:1.15rem; margin:.25rem 0 .5rem}
-.phase p{font-size:1rem; line-height:1.55; margin:0}
+.roadmap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:2rem}
+.phase{padding:1.4rem 1.4rem 0 0;border-top:4px solid var(--rule);position:relative}
+.phase::before{content:"";position:absolute;top:-11px;left:0;width:18px;height:18px;border-radius:50%;background:var(--paper);border:4px solid var(--carrot)}
+.phase:first-child{border-top-color:var(--carrot)}
+.phase:first-child::before{background:var(--carrot)}
+.phase .when{font-family:var(--sans);font-size:.88rem;color:var(--muted)}
+.phase h4{font-size:1.15rem;margin:.25rem 0 .5rem}
+.phase p{font-size:1rem;line-height:1.55;margin:0 0 .6rem}
+.gate{font-family:var(--sans);font-size:.88rem;background:var(--green-soft);color:var(--ink);padding:.5rem .7rem;border-radius:10px;display:inline-block}
 
-/* Reflection */
-.two-col{display:grid; grid-template-columns:1fr 1fr; gap:3rem; margin-top:1rem}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
 .two-col h3{margin-top:0}
 
-/* Footer */
-footer{border-top:1px solid var(--rule); padding:3rem 0 4rem}
-.sources{font-family:var(--sans); font-size:.92rem; line-height:1.5; padding-left:1.2rem; color:var(--muted); max-width:760px}
+footer{border-top:1px solid var(--rule);padding:3rem 0 4rem}
+.sources{font-family:var(--sans);font-size:.92rem;line-height:1.5;padding-left:1.2rem;color:var(--muted);max-width:760px}
 .sources li{margin-bottom:.4rem}
-.disclaimer{font-family:var(--sans); font-size:.9rem; color:var(--muted); max-width:640px; margin-top:2rem}
+.disclaimer{font-family:var(--sans);font-size:.9rem;color:var(--muted);max-width:660px;margin-top:1.6rem}
 
-/* ---------- Responsive ---------- */
-@media (max-width: 960px){
-  .hero{grid-template-columns:1fr; gap:3rem; padding-top:2.5rem}
-  .receipt-wrap{max-width:330px}
-  .summary{grid-template-columns:1fr 1fr}
-  .summary div:nth-child(2){border-right:0}
-  .summary div:nth-child(-n+2){border-bottom:1px solid var(--rule)}
-  .people, .moments{grid-template-columns:1fr; max-width:560px}
-  .rule-types{grid-template-columns:1fr 1fr}
-  .roadmap{grid-template-columns:1fr; gap:1.5rem}
-  .phase{border-top:0; border-left:3px solid var(--rule); padding:0 0 0 1.4rem}
-  .phase:first-child{border-left-color:var(--basil)}
-  .phase::before{top:0; left:-9px}
+@media (max-width:960px){
+  .hero{grid-template-columns:1fr;gap:2.6rem;padding-top:2.4rem}
+  .stage{max-width:360px}
+  .bag{left:-40px;width:170px}
+  .strip .wrap{grid-template-columns:1fr 1fr}
+  .stat:nth-child(2){border-right:0}
+  .stat:nth-child(-n+2){border-bottom:1px solid var(--rule)}
+  .calc,.builder,.ns{grid-template-columns:1fr}
+  .breaks,.moments{grid-template-columns:1fr}
+  .panel{grid-template-columns:1fr}
+  .roadmap{grid-template-columns:1fr;gap:1.6rem}
+  .phase{border-top:0;border-left:4px solid var(--rule);padding:0 0 0 1.4rem}
+  .phase:first-child{border-left-color:var(--carrot)}
+  .phase::before{top:0;left:-11px}
 }
-@media (max-width: 680px){
-  body{font-size:1.08rem}
-  .wrap{padding:0 1.15rem}
+@media (max-width:680px){
+  body{font-size:1.06rem}
+  .wrap{padding:0 1.1rem}
   section{padding:3.2rem 0}
-  .flow, .scope, .metric-row, .two-col{grid-template-columns:1fr}
-  .summary{grid-template-columns:1fr}
-  .summary div{border-right:0; border-bottom:1px solid var(--rule)}
-  .summary div:last-child{border-bottom:0}
-  .rule-types{grid-template-columns:1fr}
-  .experiment{grid-template-columns:1fr; gap:.2rem}
+  .top nav{display:none}
+  .flow,.metric-row,.two-col{grid-template-columns:1fr}
+  .experiment{grid-template-columns:1fr;gap:.2rem}
   .experiment dd{margin-bottom:1rem}
-  .facts{grid-template-columns:1fr 1fr}
-  .sticky-note{right:-.4rem}
-  .top span{display:none}
+  .xyz-item{grid-template-columns:1fr}
+  .sticky{right:-.3rem}
+  .calc,.builder{padding:1.2rem}
 }
 </style>
 </head>
@@ -296,119 +270,165 @@ footer{border-top:1px solid var(--rule); padding:3rem 0 4rem}
 <div class="wrap">
   <header class="top">
     <strong>Vijay Walunj</strong>
-    <span>Product case study</span>
+    <nav aria-label="Sections">
+      <a href="#impact">Impact</a><a href="#sizing">Sizing</a><a href="#solution">Solution</a><a href="#metrics">Metrics</a>
+    </nav>
   </header>
 
-  <!-- HERO -->
   <div class="hero">
     <div>
-      <p class="kicker">Concept case study for Instacart</p>
+      <p class="kicker">🥕 Instacart concept case study</p>
       <h1>Making grocery swaps feel less like a gamble</h1>
-      <p class="dek">What if you could tell your grocery app how your household works, once, and have every future order respect it?</p>
+      <p class="dek">About 1 in 5 grocery orders likely includes a swap the customer didn’t want. I designed a way for households to set their rules once and never think about it again.</p>
       <dl class="facts">
-        <div><dt>My role</dt><dd>Product manager, solo concept project</dd></div>
+        <div><dt>My role</dt><dd>Product manager, end to end</dd></div>
         <div><dt>Timeline</dt><dd>3 weeks</dd></div>
-        <div><dt>What I worked on</dt><dd>Discovery, problem framing, PRD, metrics, experiment design</dd></div>
-        <div><dt>Status</dt><dd>Proposal with a validation plan</dd></div>
+        <div><dt>What I owned</dt><dd>Sizing, discovery, PRD, prioritization, experiment design</dd></div>
+        <div><dt>Projected impact</dt><dd>+8 pts orders delivered as expected</dd></div>
       </dl>
     </div>
 
-    <figure class="receipt-wrap" aria-label="Illustration of a grocery order receipt showing an unwanted substitution">
-      <div class="receipt">
-        <div class="r-head"><b>Sunday order</b>23 items, delivered 4:12 pm</div>
-        <div class="r-line"><span>Bananas, 6 ct</span><span>$1.74</span></div>
-        <div class="r-line"><span>Greek yogurt, plain</span><span>$5.49</span></div>
-        <div class="r-line r-item"><span class="strike">Oat milk, unsweetened</span><span>$4.99</span></div>
-        <div class="r-sub bad">Swapped: oat milk, vanilla</div>
-        <div class="r-line"><span>Paper towels, 6 roll</span><span>$8.99</span></div>
-        <div class="r-sub ok">Swapped: store brand, fine</div>
-        <div class="r-line"><span>Sourdough loaf</span><span>$0.00</span></div>
-        <div class="r-sub">Out of stock, refunded</div>
-        <div class="r-line"><span>Coffee, whole bean</span><span>$11.99</span></div>
-        <div class="r-total r-line"><span>Swaps made</span><span>2</span></div>
-        <div class="r-line"><span>Swaps you wanted</span><span>1</span></div>
+    <div class="stage">
+      <div class="toggle" role="group" aria-label="Compare the order">
+        <button type="button" id="tg-before" aria-pressed="true">😬 Today</button>
+        <button type="button" id="tg-after" aria-pressed="false">😌 With Household Rules</button>
       </div>
-      <div class="sticky-note">The kids won’t touch vanilla. I said this last week too.</div>
-    </figure>
+      <svg class="bag" viewBox="0 0 220 240" aria-hidden="true">
+        <rect x="118" y="6" width="26" height="120" rx="13" transform="rotate(18 131 66)" fill="#E3A857"/>
+        <path d="M120 30l14 4M116 50l14 4M112 70l14 4" stroke="#B97C34" stroke-width="3" stroke-linecap="round" transform="rotate(18 131 66)"/>
+        <rect x="62" y="34" width="48" height="84" rx="4" fill="#FFFFFF"/>
+        <path d="M62 34l24-20 24 20z" fill="#F2F2F2"/>
+        <rect x="62" y="64" width="48" height="22" fill="#43B02A"/>
+        <path d="M40 72 L28 26 L52 70z" fill="#FF7009"/>
+        <path d="M28 26c-8-10-4-20 2-22c2 8 0 14-2 22zM30 26c4-12 14-14 18-10c-8 4-12 6-18 10z" fill="#43B02A"/>
+        <circle cx="150" cy="104" r="22" fill="#5FC34A"/><circle cx="128" cy="110" r="18" fill="#3E9E2C"/><circle cx="168" cy="118" r="16" fill="#2F8A22"/>
+        <path d="M16 112h188l-14 120H30z" fill="#C9925A"/>
+        <path d="M16 112h188l-4 18H20z" fill="#B07A45"/>
+        <path d="M70 160c10 12 30 12 40 0" stroke="#8C5E33" stroke-width="5" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="receipt" aria-live="polite">
+        <div class="r-head"><b>Sunday order 🧾</b>23 items, delivered 4:12 pm</div>
+        <div class="r-line"><span>Bananas, 6 ct</span><span>$1.74</span></div>
+        <div class="r-line"><span>Oat milk, unsweetened</span><span id="r-milk">$4.99</span></div>
+        <div class="r-sub bad" id="r-milk-sub">❌ Swapped: oat milk, vanilla</div>
+        <div class="r-line"><span>Organic apples, 3 lb</span><span>$6.49</span></div>
+        <div class="r-sub bad" id="r-apple-sub">❌ Swapped: conventional apples</div>
+        <div class="r-line"><span>Paper towels, 6 roll</span><span>$8.99</span></div>
+        <div class="r-sub ok" id="r-towel-sub">✅ Swapped: store brand, fine</div>
+        <div class="r-line"><span>Whole bean coffee</span><span>$11.99</span></div>
+        <div class="r-total r-line"><span>Swaps made</span><span>3</span></div>
+        <div class="r-line"><span>Swaps you wanted</span><span id="r-wanted">1 of 3</span></div>
+      </div>
+      <div class="sticky" id="sticky">The kids won’t touch vanilla. I said this last week too. 😤</div>
+    </div>
   </div>
 </div>
 </div>
 
-<!-- SUMMARY -->
-<section>
+<div class="strip">
   <div class="wrap">
-    <p class="label">The short version</p>
-    <h2>One problem, one bet, one way to know if it worked</h2>
-    <div class="summary">
-      <div><h4>The problem</h4><p>Replacement preferences are set item by item, order by order. That’s tedious, so most people skip it and let the shopper guess.</p></div>
-      <div><h4>What I did</h4><p>Mapped today’s flow, pulled together public research on substitution behavior, and compared three ways to fix it.</p></div>
-      <div><h4>The proposal</h4><p>Household Rules: standing preferences like “unsweetened only” that apply to every future order and show up for the shopper right when they need them.</p></div>
-      <div><h4>How I’d measure it</h4><p>More orders where every swap is accepted, without slowing shoppers down or pushing refunds up.</p></div>
+    <div class="stat"><b>338.8M</b><span>Instacart orders in FY 2025</span><small>Public filing</small></div>
+    <div class="stat"><b>~22%</b><span>of orders with at least one unwanted swap</span><small>My sizing model</small></div>
+    <div class="stat"><b>~85M</b><span>unwanted swaps a year</span><small>My sizing model</small></div>
+    <div class="stat"><b>+8 pts</b><span>projected lift in orders delivered as expected</span><small>Target to validate</small></div>
+  </div>
+</div>
+
+<!-- IMPACT -->
+<section id="impact">
+  <div class="wrap">
+    <p class="label">🏆 What I accomplished</p>
+    <h2>The work, in numbers</h2>
+    <div class="prose"><p>Here’s the case study in four lines. Results marked <em>projected</em> are targets from my model and experiment plan, not shipped outcomes.</p></div>
+    <div class="xyz">
+      <div class="xyz-item"><div class="xyz-emoji" aria-hidden="true">📏</div><p><span class="x">Sized a ~85M-a-year unwanted-swap problem</span>, <span class="y">measured with a transparent model built on 338.8M real orders</span>, <strong>by combining public order volume with explicit, adjustable assumptions about stockouts and rejections.</strong></p></div>
+      <div class="xyz-item"><div class="xyz-emoji" aria-hidden="true">🎯</div><p><span class="x">Projected an 8-point lift in orders delivered as expected (from ~78% to ~86%)</span>, <span class="y">measured by a 6-week, customer-randomized A/B test</span>, <strong>by turning one-tap swap rejections into standing household rules.</strong></p></div>
+      <div class="xyz-item"><div class="xyz-emoji" aria-hidden="true">✂️</div><p><span class="x">Cut v1 scope from 9 candidate features to 5</span>, <span class="y">measured by RICE scores, with every cut feature scoring under 9</span>, <strong>by asking one question of each feature: does the first version fail without it?</strong></p></div>
+      <div class="xyz-item"><div class="xyz-emoji" aria-hidden="true">🧪</div><p><span class="x">Designed an experiment that can detect a 2-point change</span>, <span class="y">measured at 80% power with ~6,800 customers per arm</span>, <strong>by setting a clear North Star, four guardrails with hard thresholds, and launch gates for each phase.</strong></p></div>
     </div>
+    <div class="legend"><i><span class="x">Green</span> = what I accomplished</i><i><span class="y">Highlighted</span> = how it’s measured</i><i><strong>Bold</strong> = how I did it</i></div>
   </div>
 </section>
 
 <!-- PROBLEM -->
 <section>
   <div class="wrap">
-    <p class="label">Understanding the problem</p>
+    <p class="label">🔍 Understanding the problem</p>
     <h2>Every grocery order has a few surprises baked in</h2>
     <div class="prose">
-      <p class="lead">If you’ve ever ordered groceries online, you know the moment. Your phone buzzes in the middle of a meeting: the oat milk is out, and your shopper wants to know if vanilla is okay. Sometimes you catch it. Often you don’t, and the vanilla shows up at your door.</p>
-      <p>Stockouts are a normal part of grocery retail. Shelves empty faster than they’re restocked, especially on weekends. So the question isn’t how to make every item available. It’s how to make sure that when something is missing, the customer still gets what they would have chosen.</p>
-      <p>Instacart has clearly invested here already. Before I proposed anything, I wanted to understand what exists today and where it still falls short.</p>
+      <p>If you’ve ever ordered groceries online, you know the moment. Your phone buzzes in the middle of a meeting: the oat milk is out, and your shopper wants to know if vanilla is okay. Sometimes you catch it. Often you don’t, and the vanilla shows up at your door.</p>
+      <p>Stockouts are a normal part of grocery retail, so the goal isn’t to make every item available. It’s to make sure that when something is missing, the customer still gets what they would have chosen.</p>
     </div>
 
     <h3>How replacements work today</h3>
-    <div class="prose"><p>For each item in the cart, a customer can choose one of three options:</p></div>
     <div class="flow">
-      <div class="option default"><span class="tag">The default</span><h4>Find best match</h4><p>The shopper picks a similar item, guided by Instacart’s replacement suggestions.</p></div>
-      <div class="option"><h4>Pick specific replacement</h4><p>The customer chooses a backup product ahead of time.</p></div>
-      <div class="option"><h4>Don’t replace</h4><p>The item is refunded if it’s unavailable.</p></div>
+      <div class="option default"><span class="em" aria-hidden="true">🤝</span><h4>Find best match <span class="tag">Default</span></h4><p>The shopper picks a similar item, guided by Instacart’s replacement suggestions.</p></div>
+      <div class="option"><span class="em" aria-hidden="true">👆</span><h4>Pick specific replacement</h4><p>The customer chooses a backup product ahead of time.</p></div>
+      <div class="option"><span class="em" aria-hidden="true">💸</span><h4>Don’t replace</h4><p>The item is refunded if it’s unavailable.</p></div>
     </div>
-    <div class="prose">
-      <p>On top of that, Instacart asks for alternatives on items that look likely to be low in stock, uses a machine learning model to rank replacement options, and lets the shopper message the customer to approve swaps in real time. That’s a strong foundation. But three things still break.</p>
+    <div class="prose"><p>Instacart already prompts for alternatives on likely low-stock items, ranks replacements with a machine learning model, and lets shoppers message customers. It’s a strong foundation, but three things still break.</p></div>
+
+    <div class="breaks">
+      <div class="break"><span class="em" aria-hidden="true">🥱</span><h4>Too much work per item</h4><p>A 25-item cart means up to 25 decisions. Baymard Institute found item-by-item substitution setup quickly becomes unwieldy.</p></div>
+      <div class="break"><span class="em" aria-hidden="true">🔁</span><h4>Preferences don’t stick</h4><p>A choice for this Sunday’s oat milk doesn’t become a lasting rule about how your household buys milk.</p></div>
+      <div class="break"><span class="em" aria-hidden="true">📵</span><h4>The safety net needs you free</h4><p>Real-time chat only works if you’re watching your phone. Otherwise the shopper guesses, and the guess is final.</p></div>
     </div>
 
-    <ul class="breaks">
-      <li><h4>The work is per item, which is too much</h4><p>Asking people to make a replacement decision for each of 20 to 40 items is a lot. Baymard Institute’s research on grocery sites found that this kind of item-by-item setup quickly becomes unwieldy, and that people need easier ways to express what they want.</p></li>
-      <li><h4>What you tell the app doesn’t seem to stick</h4><p>A choice made for this Sunday’s oat milk doesn’t turn into a lasting rule about how your household buys milk. Next week, you’re back to the default.</p></li>
-      <li><h4>The safety net assumes you’re free</h4><p>Real-time chat works if you’re watching your phone. If you’re at work, driving, or putting a kid to bed, the shopper has to guess, and the guess is final.</p></li>
-    </ul>
+    <p class="pull">People don’t have opinions about 40 items. They have a handful of rules about how their household shops.</p>
+    <p class="pull-note">This became my core hypothesis. A parent doesn’t care which paper towels show up, but they will absolutely notice the wrong cereal.</p>
+  </div>
+</section>
 
-    <p class="pull">People don’t have opinions about forty items. They have a handful of rules about how their household shops.</p>
-    <p class="pull-note">This became my working hypothesis. A parent doesn’t care which brand of paper towels shows up, but they will absolutely notice the wrong cereal. If the app could learn those few rules, it would stop asking for decisions people don’t want to make, and stop guessing on the ones they care about.</p>
+<!-- SIZING -->
+<section id="sizing">
+  <div class="wrap">
+    <p class="label">📊 Sizing the opportunity</p>
+    <h2>How big is this problem? Try the model yourself</h2>
+    <div class="prose"><p>Order volume comes from Instacart’s FY 2025 results. Everything else is an assumption I’d validate with internal data, so I made each one adjustable. Drag the sliders to stress-test the case.</p></div>
+
+    <div class="calc">
+      <div>
+        <div class="slider"><label for="s-items">Items per order <output id="o-items">25</output></label><input type="range" id="s-items" min="10" max="50" value="25"><div class="note">Assumption</div></div>
+        <div class="slider"><label for="s-oos">Items out of stock <output id="o-oos">5%</output></label><input type="range" id="s-oos" min="1" max="15" value="5"><div class="note">Assumption</div></div>
+        <div class="slider"><label for="s-bad">Swaps the customer didn’t want <output id="o-bad">20%</output></label><input type="range" id="s-bad" min="5" max="50" value="20"><div class="note">Assumption</div></div>
+        <div class="slider"><label for="s-cov">Unwanted swaps a rule would prevent <output id="o-cov">40%</output></label><input type="range" id="s-cov" min="10" max="80" value="40"><div class="note">Assumption, depends on rule adoption</div></div>
+        <p class="note">Fixed input: 338.8M orders a year (FY 2025).</p>
+      </div>
+      <div class="results" aria-live="polite">
+        <div class="res"><b id="r-swaps">84.7M</b><span>unwanted swaps a year</span></div>
+        <div class="res"><b id="r-orders">22.2%</b><span>of orders hit by at least one unwanted swap</span><div class="bar"><i id="b-before" style="width:22.2%"></i></div></div>
+        <div class="res"><b id="r-after">14.0%</b><span>with Household Rules</span><div class="bar"><i class="g" id="b-after" style="width:14%"></i></div></div>
+        <div class="res hi"><b id="r-lift">+8.2 pts</b><span>more orders delivered as expected, about <strong id="r-saved">33.9M</strong> bad swaps prevented a year</span></div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- PEOPLE -->
 <section>
   <div class="wrap">
-    <p class="label">Who this is for</p>
-    <h2>Two customers and one person in the middle</h2>
-    <div class="prose"><p>These are proto-personas, built from public research and my own assumptions. They’re a starting point for interviews, not a replacement for them.</p></div>
-    <div class="people">
-      <div class="person">
-        <div class="avatar" aria-hidden="true">P</div>
-        <h4>Priya, the weekly restocker</h4>
-        <p class="role">Two kids, orders from her phone at lunch</p>
-        <p>Her list barely changes week to week. She cares deeply about four or five items and not at all about the rest. She doesn’t have time to set preferences on every line.</p>
-        <blockquote>“Any paper towels are fine. Just not the wrong cereal.”</blockquote>
-      </div>
-      <div class="person">
-        <div class="avatar" aria-hidden="true">M</div>
-        <h4>Marcus, the particular one</h4>
-        <p class="role">Shops organic, reads every label</p>
-        <p>He would rather get a refund than a swap that breaks his standards. A non-organic replacement isn’t a small miss for him. It’s a reason to stop using the app.</p>
-        <blockquote>“If it’s not organic, don’t bother. Just refund me.”</blockquote>
-      </div>
-      <div class="person secondary">
-        <div class="avatar" aria-hidden="true">S</div>
-        <h4>The shopper</h4>
-        <p class="role">Secondary user, often juggling several orders</p>
-        <p>They want clear instructions, fewer back-and-forth messages, and no extra screens. Any solution that slows them down in the aisle fails, no matter how much customers like it.</p>
-        <blockquote>“Tell me what they want and let me move on.”</blockquote>
-      </div>
+    <p class="label">👥 Who this is for</p>
+    <h2>Two customers and the person in the middle</h2>
+    <div class="prose"><p>Proto-personas built from public research and my assumptions. They set up the interview guide, not replace it.</p></div>
+    <div class="tabs" role="tablist" aria-label="Personas">
+      <button role="tab" id="t1" aria-selected="true" aria-controls="p1">👩‍👧 Priya</button>
+      <button role="tab" id="t2" aria-selected="false" aria-controls="p2" tabindex="-1">🥬 Marcus</button>
+      <button role="tab" id="t3" aria-selected="false" aria-controls="p3" tabindex="-1">🛒 The shopper</button>
+    </div>
+    <div class="panel" role="tabpanel" id="p1" aria-labelledby="t1">
+      <div class="face" aria-hidden="true">👩‍👧</div>
+      <div><h4>Priya, the weekly restocker</h4><p class="role">Two kids, orders from her phone at lunch</p><p>Her list barely changes week to week. She cares about 4 or 5 items and not at all about the other 20.</p><blockquote>“Any paper towels are fine. Just not the wrong cereal.”</blockquote></div>
+      <div><h5>What she needs</h5><ul><li>Zero setup on items she doesn’t care about</li><li>Confidence the important items arrive right</li></ul><h5>Rules she’d set</h5><ul><li>🥣 Cereal: this brand only</li><li>🧻 Paper towels: any brand</li></ul></div>
+    </div>
+    <div class="panel" role="tabpanel" id="p2" aria-labelledby="t2" hidden>
+      <div class="face" aria-hidden="true">🥬</div>
+      <div><h4>Marcus, the particular one</h4><p class="role">Shops organic, reads every label</p><p>He’d rather get a refund than a swap that breaks his standards. One wrong swap is a reason to try a competitor.</p><blockquote>“If it’s not organic, don’t bother. Just refund me.”</blockquote></div>
+      <div><h5>What he needs</h5><ul><li>Hard limits the shopper can’t override</li><li>Refunds as a real choice, not a failure</li></ul><h5>Rules he’d set</h5><ul><li>🍎 Produce: organic or refund</li><li>☕ Coffee: whole bean only</li></ul></div>
+    </div>
+    <div class="panel" role="tabpanel" id="p3" aria-labelledby="t3" hidden>
+      <div class="face" aria-hidden="true">🛒</div>
+      <div><h4>The shopper</h4><p class="role">Secondary user, often juggling several orders</p><p>Any solution that slows them down in the aisle fails, no matter how much customers love it.</p><blockquote>“Tell me what they want and let me move on.”</blockquote></div>
+      <div><h5>What they need</h5><ul><li>Instructions only at the out-of-stock moment</li><li>Fewer back-and-forth messages</li></ul><h5>My guardrail for them</h5><ul><li>⏱️ No more than +5 seconds per out-of-stock item</li></ul></div>
     </div>
   </div>
 </section>
@@ -416,207 +436,187 @@ footer{border-top:1px solid var(--rule); padding:3rem 0 4rem}
 <!-- ASSUMPTIONS -->
 <section>
   <div class="wrap">
-    <p class="label">Being honest about what I don’t know</p>
-    <h2>The assumptions this idea rests on</h2>
-    <div class="prose"><p>Before writing a single requirement, I listed what has to be true for this to work. The riskiest ones are what I’d test first.</p></div>
+    <p class="label">🧠 Being honest about what I don’t know</p>
+    <h2>The four assumptions this idea rests on</h2>
     <div class="table-scroll">
       <table>
-        <thead><tr><th>Assumption</th><th>Why I believe it</th><th>How I’d test it</th><th>Risk if wrong</th></tr></thead>
+        <thead><tr><th>Assumption</th><th>Why I believe it</th><th>How I’d test it</th><th>Pass bar</th><th>Risk if wrong</th></tr></thead>
         <tbody>
-          <tr><td><strong>Most customers leave replacements on the default</strong></td><td>Best match is the default, and per-item setup is tedious</td><td>Share of cart items with a non-default preference</td><td><span class="risk low">Low</span></td></tr>
-          <tr><td><strong>Preferences cluster by category, not by item</strong></td><td>People are loyal about coffee and cereal, not foil</td><td>Card sort with 8 customers; rejected swaps grouped by category</td><td><span class="risk high">High</span></td></tr>
-          <tr><td><strong>Some customers prefer refunds over wrong swaps</strong></td><td>Public complaints about bad replacements</td><td>Short survey across 10 product categories</td><td><span class="risk med">Medium</span></td></tr>
-          <tr><td><strong>Shoppers can follow rules without slowing down</strong></td><td>Shoppers already see suggested picks while scanning</td><td>Shopper interviews and a timed pilot</td><td><span class="risk high">High</span></td></tr>
+          <tr><td><strong>Most customers leave replacements on the default</strong></td><td>Best match is the default; per-item setup is tedious</td><td>Share of cart items with a non-default preference</td><td>Under 30% of items</td><td><span class="pill low">Low</span></td></tr>
+          <tr><td><strong>Preferences cluster by category</strong></td><td>People are loyal about coffee and cereal, not foil</td><td>Card sort with 8 customers; rejected swaps by category</td><td>Top 10 categories hold 60%+ of rejections</td><td><span class="pill high">High</span></td></tr>
+          <tr><td><strong>Some customers prefer refunds to wrong swaps</strong></td><td>Public complaints about bad replacements</td><td>Survey of 300 customers across 10 categories</td><td>25%+ prefer refund in 3+ categories</td><td><span class="pill med">Medium</span></td></tr>
+          <tr><td><strong>Shoppers can follow rules without slowing down</strong></td><td>Shoppers already see suggested picks while scanning</td><td>6 shopper interviews and a timed pilot</td><td>+5 seconds or less per item</td><td><span class="pill high">High</span></td></tr>
         </tbody>
       </table>
     </div>
-    <div class="prose"><p>The second assumption matters most. If people’s preferences really are item-specific, Household Rules turns into per-item settings with extra steps, and the whole idea falls apart.</p></div>
   </div>
 </section>
 
 <!-- OPTIONS -->
 <section>
   <div class="wrap">
-    <p class="label">Exploring solutions</p>
-    <h2>Three ways to fix it, and why I picked the hardest one</h2>
-    <div class="prose"><p><em>How might we let customers express what they care about once, so swaps match their intent without adding work for them or the shopper?</em></p></div>
+    <p class="label">⚖️ Exploring solutions</p>
+    <h2>Three ways to fix it, scored honestly</h2>
+    <div class="prose"><p><em>How might we let customers express what they care about once, so swaps match their intent without adding work for them or the shopper?</em></p><p>I scored each option on four weighted criteria from 1 to 5. Household Rules won, but not by a landslide, which is exactly why the riskiest assumptions get tested first.</p></div>
     <div class="table-scroll">
       <table>
-        <thead><tr><th>Option</th><th>What it is</th><th>Strength</th><th>Weakness</th><th>Effort</th></tr></thead>
+        <thead><tr><th>Option</th><th class="num">Customer impact (40%)</th><th class="num">Shopper effort (25%)</th><th class="num">Build cost (20%)</th><th class="num">Strategic fit (15%)</th><th class="num">Weighted score</th></tr></thead>
         <tbody>
-          <tr><td><strong>A. One global setting</strong></td><td>A single switch: always replace or never replace</td><td>Fast to build, easy to understand</td><td>Too blunt. Priya wants swaps on paper towels and refunds on cereal.</td><td>Small</td></tr>
-          <tr><td><strong>B. Smarter defaults only</strong></td><td>Keep improving the model; no new customer controls</td><td>Invisible, no new UI to learn</td><td>Can’t capture stated values like “we only buy organic.” Wrong guesses still erode trust.</td><td>Medium</td></tr>
-          <tr class="chosen"><td><strong>C. Household Rules</strong></td><td>Standing, category-level rules that apply to every order</td><td>Captures intent once. Works with the model: rules set the limits, the model ranks within them.</td><td>More scope, and rules can conflict with each other</td><td>Large</td></tr>
+          <tr><td><strong>A. One global setting</strong><br><span class="note">Always replace or never replace</span></td><td class="num">2</td><td class="num">4</td><td class="num">5</td><td class="num">2</td><td class="num"><span class="scorebar" style="width:62px"></span>3.10</td></tr>
+          <tr><td><strong>B. Smarter defaults only</strong><br><span class="note">Improve the model, no new controls</span></td><td class="num">3</td><td class="num">5</td><td class="num">3</td><td class="num">4</td><td class="num"><span class="scorebar" style="width:73px"></span>3.65</td></tr>
+          <tr class="win"><td><strong>✅ C. Household Rules</strong><br><span class="note">Standing category rules + the model</span></td><td class="num">5</td><td class="num">3</td><td class="num">2</td><td class="num">5</td><td class="num"><span class="scorebar" style="width:78px"></span>3.90</td></tr>
         </tbody>
       </table>
     </div>
-    <div class="prose"><p>Option C costs more, but it’s the only one that solves both halves of the problem: less work for customers and better outcomes on the items they care about. It also makes the existing model more valuable instead of competing with it.</p></div>
+    <div class="prose"><p>The key insight: C doesn’t replace B, it makes it better. Rules set the hard limits, and the model ranks the options inside them.</p></div>
   </div>
 </section>
 
 <!-- SOLUTION -->
-<section>
+<section id="solution">
   <div class="wrap">
-    <p class="label">The solution</p>
-    <h2>Household Rules, in three moments</h2>
-    <div class="prose"><p>The key design decision was <em>when</em> to ask. Nobody wants a setup wizard for their groceries. So instead of asking up front, the app asks right after a swap goes wrong, when the preference is fresh and the customer is motivated to fix it.</p></div>
+    <p class="label">💡 The solution</p>
+    <h2>Household Rules. Try building one</h2>
+    <div class="prose"><p>Pick an item and a rule, and watch what the shopper sees when that item is out of stock.</p></div>
 
-    <div class="moments">
-      <div class="moment">
-        <div class="step">1</div>
-        <h4>Ask when it matters</h4>
-        <p>After a customer rejects a swap, the app offers to turn that into a rule with one tap. The rule is pre-filled, so there’s nothing to type.</p>
-        <div class="phone" role="img" aria-label="Phone screen asking the customer whether to save a rule after a rejected swap">
-          <div class="bar"><i></i></div>
-          <div class="screen">
-            <span class="meta">Order delivered</span>
-            <h5>Sorry about the oat milk</h5>
-            <div class="chip"><b>You rejected: oat milk, vanilla</b><span>Refund of $4.99 is on its way</span></div>
-            <div class="grow"></div>
-            <h5>Want this to stick?</h5>
-            <div class="chip rule"><b>Oat milk: unsweetened only</b><span>If it’s out, refund instead</span></div>
-            <span class="btn primary">Save rule</span>
-            <span class="btn ghost">Not now</span>
-          </div>
-        </div>
+    <div class="builder">
+      <div>
+        <p class="step-h">1. Pick an item that’s out of stock</p>
+        <div class="chips" id="items"></div>
+        <p class="step-h">2. Pick your household rule</p>
+        <div class="chips" id="rules"></div>
+        <div class="rule-text" id="rule-text"></div>
       </div>
-
-      <div class="moment">
-        <div class="step">2</div>
-        <h4>Show it in the cart</h4>
-        <p>Items covered by a rule get a small tag. Nobody has to set anything per item, and everyone can see what will happen if something runs out.</p>
-        <div class="phone" role="img" aria-label="Phone screen of a cart with items tagged by household rules">
-          <div class="bar"><i></i></div>
-          <div class="screen">
-            <h5>Your cart</h5>
-            <span class="meta">22 items, 6 covered by your rules</span>
-            <div class="chip"><b>Oat milk, unsweetened</b><span class="covered">Unsweetened only</span></div>
-            <div class="chip"><b>Paper towels, 6 roll</b><span class="covered">Any brand is fine</span></div>
-            <div class="chip"><b>Honeycrisp apples</b><span class="covered">Organic or refund</span></div>
-            <div class="chip"><b>Whole bean coffee</b><span class="covered">This brand only</span></div>
-            <div class="grow"></div>
-            <span class="btn ghost">Manage household rules</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="moment">
-        <div class="step">3</div>
-        <h4>Put it in the shopper’s hands</h4>
-        <p>When a shopper marks an item out of stock, the rule appears at the top and options that break it are greyed out. No messages needed.</p>
-        <div class="phone" role="img" aria-label="Shopper app screen showing a customer rule and filtered replacement options">
-          <div class="bar"><i></i></div>
-          <div class="screen">
-            <span class="meta">Out of stock: oat milk, unsweetened</span>
-            <div class="banner">Customer rule: unsweetened only. If none, refund.</div>
-            <h5>Replacement options</h5>
-            <div class="swap"><span class="dot"></span><div><b>Oat milk, unsweetened, 32 oz</b><br><span class="meta">Other brand, matches rule</span></div></div>
-            <div class="swap dim"><span class="dot off"></span><div><b>Oat milk, vanilla</b><br><span class="meta">Breaks rule</span></div></div>
-            <div class="swap dim"><span class="dot off"></span><div><b>Oat milk, barista blend</b><br><span class="meta">Breaks rule</span></div></div>
-            <div class="grow"></div>
-            <span class="btn primary">Scan replacement</span>
-          </div>
+      <div class="phone" role="img" aria-label="Shopper app preview updating with the chosen rule">
+        <div class="notch"><i></i></div>
+        <div class="screen" aria-live="polite">
+          <span class="meta" id="ph-meta"></span>
+          <div class="banner" id="ph-banner"></div>
+          <h5>Replacement options</h5>
+          <div id="ph-opts" style="display:flex;flex-direction:column;gap:.45rem"></div>
+          <div class="outcome" id="ph-out"></div>
         </div>
       </div>
     </div>
 
-    <h3>Four kinds of rules cover most of what people care about</h3>
-    <div class="rule-types">
-      <div><h4>Brand</h4><p><em>“This brand only”</em> or <em>“any brand is fine.”</em></p></div>
-      <div><h4>Attribute</h4><p><em>“Organic only,” “unsweetened,” “same size or bigger.”</em></p></div>
-      <div><h4>Price</h4><p><em>“No more than $1 over the original.”</em></p></div>
-      <div><h4>Fallback</h4><p><em>“If nothing fits, refund me.”</em></p></div>
+    <h3>Three moments, no setup wizard</h3>
+    <div class="moments">
+      <div class="moment"><div class="num">1</div><h4>👆 Ask when it matters</h4><p>Right after a customer rejects a swap, the app offers a pre-filled rule. One tap saves it.</p></div>
+      <div class="moment"><div class="num">2</div><h4>🏷️ Show it in the cart</h4><p>Items covered by a rule get a small tag, so nobody sets anything per item.</p></div>
+      <div class="moment"><div class="num">3</div><h4>🛒 Guide the shopper</h4><p>At the out-of-stock moment, the rule appears and options that break it are greyed out.</p></div>
     </div>
   </div>
 </section>
 
-<!-- SCOPE -->
+<!-- PRIORITIZATION -->
 <section>
   <div class="wrap">
-    <p class="label">Prioritization</p>
-    <h2>What ships first, and what waits</h2>
-    <div class="prose"><p>I cut scope by asking one question about every feature: does the first version fail without it? If not, it waits.</p></div>
-    <div class="scope">
-      <div>
-        <h4>In the first version</h4>
-        <ul>
-          <li>Save a rule from a rejected swap, in one tap</li>
-          <li>The four rule types above</li>
-          <li>Rule tags on cart items</li>
-          <li>Rules shown to shoppers, with breaking options greyed out</li>
-          <li>A simple page to edit or delete rules</li>
-        </ul>
-      </div>
-      <div class="later">
-        <h4>Later, once the core works</h4>
-        <ul>
-          <li>Suggested rules based on past orders</li>
-          <li>Shared rules for everyone in a household</li>
-          <li>Rules that differ by store</li>
-          <li>A monthly “your rules saved you 4 bad swaps” recap</li>
-        </ul>
-      </div>
+    <p class="label">✂️ Prioritization</p>
+    <h2>9 ideas, 5 make the first version</h2>
+    <div class="prose"><p>RICE = Reach × Impact × Confidence ÷ Effort. Reach is the share of weekly customers affected; effort is in engineering weeks. All inputs are my estimates.</p></div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Feature</th><th class="num">Reach</th><th class="num">Impact</th><th class="num">Confidence</th><th class="num">Effort</th><th class="num">RICE</th><th>Decision</th></tr></thead>
+        <tbody>
+          <tr class="win"><td>💾 Save a rule from a rejected swap</td><td class="num">40%</td><td class="num">3</td><td class="num">80%</td><td class="num">3</td><td class="num"><strong>32.0</strong></td><td><span class="pill v1">v1</span></td></tr>
+          <tr class="win"><td>🏷️ Rule tags in the cart</td><td class="num">60%</td><td class="num">1</td><td class="num">80%</td><td class="num">2</td><td class="num"><strong>24.0</strong></td><td><span class="pill v1">v1</span></td></tr>
+          <tr class="win"><td>✏️ Edit or delete rules</td><td class="num">20%</td><td class="num">1</td><td class="num">90%</td><td class="num">1</td><td class="num"><strong>18.0</strong></td><td><span class="pill v1">v1</span></td></tr>
+          <tr class="win"><td>🛒 Shopper rule banner and filtering</td><td class="num">40%</td><td class="num">3</td><td class="num">70%</td><td class="num">5</td><td class="num"><strong>16.8</strong></td><td><span class="pill v1">v1</span></td></tr>
+          <tr class="win"><td>🧩 Four rule types</td><td class="num">40%</td><td class="num">2</td><td class="num">70%</td><td class="num">4</td><td class="num"><strong>14.0</strong></td><td><span class="pill v1">v1</span></td></tr>
+          <tr class="cut"><td>🤖 Suggested rules from order history</td><td class="num">70%</td><td class="num">2</td><td class="num">50%</td><td class="num">8</td><td class="num">8.8</td><td><span class="pill later">Phase 2</span></td></tr>
+          <tr class="cut"><td>📬 Monthly “bad swaps avoided” recap</td><td class="num">50%</td><td class="num">0.5</td><td class="num">60%</td><td class="num">2</td><td class="num">7.5</td><td><span class="pill later">Phase 2</span></td></tr>
+          <tr class="cut"><td>👨‍👩‍👧 Shared household rules</td><td class="num">15%</td><td class="num">1</td><td class="num">50%</td><td class="num">6</td><td class="num">1.3</td><td><span class="pill later">Phase 3</span></td></tr>
+          <tr class="cut"><td>🏪 Store-specific rules</td><td class="num">10%</td><td class="num">1</td><td class="num">40%</td><td class="num">8</td><td class="num">0.5</td><td><span class="pill later">Phase 3</span></td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
 
 <!-- METRICS -->
-<section>
+<section id="metrics">
   <div class="wrap">
-    <p class="label">Measuring success</p>
+    <p class="label">📈 Measuring success</p>
     <h2>How I’d know it’s working</h2>
-    <div class="metric-tree">
-      <div class="ns">
-        <p class="small">North Star metric</p>
+    <div class="ns">
+      <div>
+        <span class="lab">⭐ North Star metric</span>
         <h3>Orders delivered as expected</h3>
-        <p>The share of orders where every swap was accepted and no refund happened that the customer didn’t ask for. It captures what customers actually feel: “I got what I meant to order.”</p>
+        <p>The share of orders where every swap was accepted and no refund happened that the customer didn’t choose. It measures what customers actually feel: “I got what I meant to order.”</p>
       </div>
-      <div class="metric-row">
-        <div class="metric-box">
-          <h4>Signals that it’s being used</h4>
-          <ul>
-            <li>Share of active customers with at least one rule</li>
-            <li>Share of cart items covered by a rule</li>
-            <li>Save rate on the “Want this to stick?” prompt</li>
-            <li>Swap acceptance on rule-covered items vs. uncovered ones</li>
-          </ul>
-        </div>
-        <div class="metric-box">
-          <h4>Guardrails I wouldn’t let slip</h4>
-          <ul>
-            <li>Shopper time per out-of-stock item</li>
-            <li>Refund rate, since strict rules could shrink baskets</li>
-            <li>Order cancellations</li>
-            <li>Support contacts about replacements</li>
-          </ul>
-        </div>
+      <div class="gauge" aria-label="Baseline 78 percent, target 86 percent">
+        <div class="row"><span>Modeled baseline</span><strong>~78%</strong></div>
+        <div class="track"><div class="fill" style="width:78%"></div></div>
+        <div class="row"><span>Target</span><strong>~86%</strong></div>
+        <div class="track"><div class="fill t" style="width:86%"></div></div>
+      </div>
+    </div>
+    <div class="metric-row">
+      <div class="box">
+        <h4>📍 Input metrics and targets</h4>
+        <ul>
+          <li>Save rate on the “Want this to stick?” prompt: <strong>25%+</strong></li>
+          <li>Active customers with at least one rule: <strong>15% by week 6</strong></li>
+          <li>Cart items covered by a rule: <strong>10%+</strong></li>
+          <li>Swap acceptance, covered vs. uncovered items: <strong>+10 pts</strong></li>
+        </ul>
+      </div>
+      <div class="box">
+        <h4>🚧 Guardrails with hard limits</h4>
+        <ul>
+          <li>Shopper time per out-of-stock item: <strong>+5 sec max</strong></li>
+          <li>Refund rate: <strong>+0.5 pts max</strong></li>
+          <li>Order cancellations: <strong>no significant increase</strong></li>
+          <li>Support contacts about replacements: <strong>flat or down</strong></li>
+        </ul>
       </div>
     </div>
 
-    <h3>The experiment</h3>
+    <h3>🧪 The experiment</h3>
     <dl class="experiment">
-      <dt>Hypothesis</dt><dd>If customers can save standing rules, orders delivered as expected will go up, because shoppers will make fewer guesses on the items customers care about.</dd>
-      <dt>Setup</dt><dd>A/B test randomized by customer, not by order, so the same household doesn’t see both versions. Start in one or two metro areas.</dd>
-      <dt>How long</dt><dd>At least four to six weeks. Most people order weekly, and a rule only proves its value on the second or third order after it’s saved.</dd>
-      <dt>Ship if</dt><dd>The North Star improves meaningfully and no guardrail gets worse. If refunds rise, I’d look at which rules are causing it before deciding anything.</dd>
+      <dt>Hypothesis</dt><dd>If customers can save standing rules, orders delivered as expected will rise by at least 2 points, because shoppers make fewer guesses on items customers care about.</dd>
+      <dt>Design</dt><dd>A/B test randomized by customer, not by order, so one household never sees both versions. Start in 2 metro areas.</dd>
+      <dt>Sample size</dt><dd>~6,800 customers per arm to detect a 2-point change from a 78% baseline (95% confidence, 80% power). I’d plan for well above that, since orders from the same customer aren’t independent.</dd>
+      <dt>Duration</dt><dd>6 weeks. Most people order weekly, and a rule proves its value on the 2nd or 3rd order after it’s saved.</dd>
+      <dt>Decision rule</dt><dd>Ship if the North Star improves by 2+ points and every guardrail holds. If refunds rise, find the rules causing it before deciding.</dd>
     </dl>
+  </div>
+</section>
+
+<!-- STAKEHOLDERS -->
+<section>
+  <div class="wrap">
+    <p class="label">🤝 Working across teams</p>
+    <h2>Who does what</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Workstream</th><th>Product (me)</th><th>Engineering</th><th>Design</th><th>Data Science</th><th>Shopper Ops</th></tr></thead>
+        <tbody>
+          <tr><td><strong>PRD and success metrics</strong></td><td>Accountable, Responsible</td><td>Consulted</td><td>Consulted</td><td>Consulted</td><td>Informed</td></tr>
+          <tr><td><strong>Rule engine and APIs</strong></td><td>Accountable</td><td>Responsible</td><td>Informed</td><td>Consulted</td><td>Informed</td></tr>
+          <tr><td><strong>Customer experience</strong></td><td>Accountable</td><td>Consulted</td><td>Responsible</td><td>Informed</td><td>Informed</td></tr>
+          <tr><td><strong>Shopper app changes</strong></td><td>Accountable</td><td>Responsible</td><td>Responsible</td><td>Informed</td><td>Consulted</td></tr>
+          <tr><td><strong>Experiment and readout</strong></td><td>Accountable</td><td>Consulted</td><td>Informed</td><td>Responsible</td><td>Informed</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
 
 <!-- RISKS -->
 <section>
   <div class="wrap">
-    <p class="label">Risks and tradeoffs</p>
+    <p class="label">⚠️ Risks and tradeoffs</p>
     <h2>What could go wrong</h2>
     <div class="table-scroll">
       <table>
         <thead><tr><th>Risk</th><th>What it looks like</th><th>How I’d handle it</th></tr></thead>
         <tbody>
-          <tr><td><strong>Rules that are too strict</strong></td><td>More refunds, smaller orders, less revenue</td><td>Nudge gently: “This rule caused 3 refunds last month. Want to loosen it?”</td></tr>
-          <tr><td><strong>Rules that conflict</strong></td><td>“Organic only” plus “no more than $1 over,” with nothing that fits both</td><td>The stricter rule wins, the fallback kicks in, and the customer is told why</td></tr>
-          <tr><td><strong>More work for shoppers</strong></td><td>Slower picking and frustrated shoppers</td><td>Rules only appear at the out-of-stock moment, never earlier</td></tr>
-          <tr><td><strong>Messy product data</strong></td><td>Items missing tags like “organic,” so rules can’t be applied</td><td>Launch with categories where product data is clean, then expand</td></tr>
-          <tr><td><strong>Cold start</strong></td><td>New customers have no rules, so nothing changes for them</td><td>Suggest rules from past rejected swaps in a later version</td></tr>
+          <tr><td><strong>🔒 Rules that are too strict</strong></td><td>More refunds, smaller baskets, less GTV</td><td>Nudge: “This rule caused 3 refunds last month. Want to loosen it?”</td></tr>
+          <tr><td><strong>⚔️ Rules that conflict</strong></td><td>“Organic only” plus “no more than $1 over,” with nothing that fits both</td><td>The stricter rule wins, the fallback kicks in, and the customer is told why</td></tr>
+          <tr><td><strong>🐢 More work for shoppers</strong></td><td>Slower picking, frustrated shoppers</td><td>Rules only appear at the out-of-stock moment; hard +5 second guardrail</td></tr>
+          <tr><td><strong>🧹 Messy product data</strong></td><td>Items missing tags like “organic”</td><td>Launch with the 10 categories with the cleanest attributes</td></tr>
+          <tr><td><strong>🥶 Cold start</strong></td><td>New customers have no rules yet</td><td>Phase 2 suggests rules from past rejected swaps</td></tr>
         </tbody>
       </table>
     </div>
@@ -626,12 +626,12 @@ footer{border-top:1px solid var(--rule); padding:3rem 0 4rem}
 <!-- ROADMAP -->
 <section>
   <div class="wrap">
-    <p class="label">Roadmap</p>
-    <h2>From pilot to default experience</h2>
+    <p class="label">🗺️ Roadmap</p>
+    <h2>From pilot to default, with a gate at every step</h2>
     <div class="roadmap">
-      <div class="phase"><span class="when">Phase 1, months 1 to 3</span><h4>Prove the core</h4><p>Ship the first version to a test group in a few markets. Validate that rules get saved and that shoppers can follow them without slowing down.</p></div>
-      <div class="phase"><span class="when">Phase 2, months 4 to 6</span><h4>Make it effortless</h4><p>Suggest rules automatically from order history, so customers get value before anything goes wrong.</p></div>
-      <div class="phase"><span class="when">Phase 3, months 7 and on</span><h4>Make it shared</h4><p>Let everyone in a household see and edit the same rules, and adapt rules to each store’s catalog.</p></div>
+      <div class="phase"><span class="when">Phase 1, months 1–3</span><h4>🌱 Prove the core</h4><p>Ship v1 to 5% of customers in 2 metros.</p><span class="gate">Gate: 25%+ prompt save rate, guardrails hold</span></div>
+      <div class="phase"><span class="when">Phase 2, months 4–6</span><h4>🤖 Make it effortless</h4><p>Suggest rules from order history; expand to 50% of customers.</p><span class="gate">Gate: +2 pts North Star, statistically significant</span></div>
+      <div class="phase"><span class="when">Phase 3, months 7+</span><h4>👨‍👩‍👧 Make it shared</h4><p>Household-wide rules and store-specific catalogs; roll out to 100%.</p><span class="gate">Gate: refund rate within +0.5 pts</span></div>
     </div>
   </div>
 </section>
@@ -639,34 +639,159 @@ footer{border-top:1px solid var(--rule); padding:3rem 0 4rem}
 <!-- REFLECTION -->
 <section>
   <div class="wrap">
-    <p class="label">Looking back</p>
+    <p class="label">🪞 Looking back</p>
     <h2>What I learned</h2>
     <div class="two-col">
-      <div class="prose">
-        <h3>The hard part wasn’t the screens</h3>
-        <p>I expected to spend most of my time on the interface. Instead, the hardest questions were about definitions. What counts as a “good” swap? Who decides when two rules disagree? Getting those answers right mattered more than any button.</p>
-      </div>
-      <div class="prose">
-        <h3>What I’d do with more time</h3>
-        <p>I’d talk to shoppers first. This idea lives or dies in the aisle, not in the app. If rules add even a few seconds per item across thousands of orders, that’s a real cost, and I’d want to see it before building anything.</p>
-      </div>
+      <div class="prose"><h3>The hard part wasn’t the screens</h3><p>The hardest questions were about definitions. What counts as a “good” swap? Who wins when two rules disagree? Getting those right mattered more than any button.</p></div>
+      <div class="prose"><h3>What I’d do next</h3><p>Talk to shoppers first. This idea lives or dies in the aisle, not in the app. Even 5 extra seconds per item across millions of orders is a real cost.</p></div>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <p class="label">Sources</p>
+    <p class="label">📚 Sources</p>
     <ol class="sources">
-      <li><a href="https://baymard.com/research-articles/grocery-substitutions">Baymard Institute: Online grocery UX, making substitution preferences easier</a></li>
+      <li><a href="https://investors.instacart.com/">Instacart investor relations: FY 2025 results (338.8M orders, $37.2B GTV)</a></li>
+      <li><a href="https://baymard.com/research-articles/grocery-substitutions">Baymard Institute: Making grocery substitution preferences easier</a></li>
       <li><a href="https://company.instacart.com/tech-innovation/designing-digital-experiences-that-augment-the-analog-world">Instacart: Designing digital experiences that augment the analog world</a></li>
       <li><a href="https://company.instacart.com/shopper-community/providing-a-more-straightforward-replacements-experience">Instacart Shopper Community: A more straightforward replacements experience</a></li>
-      <li><a href="https://www.shopfood.com/4091455/instacart-replacements/">Shopfood: How Instacart replacements work</a></li>
     </ol>
-    <p class="disclaimer">This is an independent concept project. I’m not affiliated with Instacart, and everything here is based on publicly available information. The personas and assumptions are hypotheses I’d validate through research before building.</p>
+    <p class="disclaimer">Independent concept project, not affiliated with Instacart. Order volume is from public filings; every other number is an assumption, estimate, or target I’d validate with real data before building.</p>
     <p class="disclaimer">Vijay Walunj, Boston, MA</p>
   </div>
 </footer>
 
+<script>
+(function(){
+  /* Receipt toggle */
+  var before=document.getElementById('tg-before'), after=document.getElementById('tg-after');
+  var milk=document.getElementById('r-milk-sub'), apple=document.getElementById('r-apple-sub'), towel=document.getElementById('r-towel-sub');
+  var wanted=document.getElementById('r-wanted'), sticky=document.getElementById('sticky');
+  function setState(rules){
+    before.setAttribute('aria-pressed', String(!rules));
+    after.setAttribute('aria-pressed', String(rules));
+    if(rules){
+      milk.className='r-sub ok'; milk.textContent='✅ Swapped: another brand, unsweetened';
+      apple.className='r-sub ok'; apple.textContent='✅ Refunded, per your “organic or refund” rule';
+      towel.className='r-sub ok'; towel.textContent='✅ Swapped: store brand, any brand is fine';
+      wanted.textContent='3 of 3'; sticky.textContent='Finally. It remembered. 🙌'; sticky.classList.add('happy');
+    } else {
+      milk.className='r-sub bad'; milk.textContent='❌ Swapped: oat milk, vanilla';
+      apple.className='r-sub bad'; apple.textContent='❌ Swapped: conventional apples';
+      towel.className='r-sub ok'; towel.textContent='✅ Swapped: store brand, fine';
+      wanted.textContent='1 of 3'; sticky.textContent='The kids won’t touch vanilla. I said this last week too. 😤'; sticky.classList.remove('happy');
+    }
+  }
+  before.addEventListener('click',function(){setState(false)});
+  after.addEventListener('click',function(){setState(true)});
+
+  /* Sizing calculator */
+  var ORDERS=338.8e6;
+  var ids=['items','oos','bad','cov'];
+  function fmt(n){ if(n>=1e9) return (n/1e9).toFixed(1)+'B'; if(n>=1e6) return (n/1e6).toFixed(1)+'M'; if(n>=1e3) return (n/1e3).toFixed(0)+'K'; return Math.round(n).toString(); }
+  function calc(){
+    var items=+document.getElementById('s-items').value;
+    var oos=+document.getElementById('s-oos').value/100;
+    var bad=+document.getElementById('s-bad').value/100;
+    var cov=+document.getElementById('s-cov').value/100;
+    document.getElementById('o-items').textContent=items;
+    document.getElementById('o-oos').textContent=Math.round(oos*100)+'%';
+    document.getElementById('o-bad').textContent=Math.round(bad*100)+'%';
+    document.getElementById('o-cov').textContent=Math.round(cov*100)+'%';
+    var p=oos*bad;
+    var swaps=ORDERS*items*p;
+    var hit=1-Math.pow(1-p,items);
+    var hitAfter=1-Math.pow(1-p*(1-cov),items);
+    document.getElementById('r-swaps').textContent=fmt(swaps);
+    document.getElementById('r-orders').textContent=(hit*100).toFixed(1)+'%';
+    document.getElementById('r-after').textContent=(hitAfter*100).toFixed(1)+'%';
+    document.getElementById('r-lift').textContent='+'+((hit-hitAfter)*100).toFixed(1)+' pts';
+    document.getElementById('r-saved').textContent=fmt(swaps*cov);
+    document.getElementById('b-before').style.width=Math.min(100,hit*100)+'%';
+    document.getElementById('b-after').style.width=Math.min(100,hitAfter*100)+'%';
+  }
+  ids.forEach(function(id){document.getElementById('s-'+id).addEventListener('input',calc)});
+  calc();
+
+  /* Persona tabs */
+  var tabs=[].slice.call(document.querySelectorAll('[role="tab"]'));
+  function selectTab(t){
+    tabs.forEach(function(x){
+      var on=x===t; x.setAttribute('aria-selected',String(on)); x.tabIndex=on?0:-1;
+      document.getElementById(x.getAttribute('aria-controls')).hidden=!on;
+    });
+    t.focus();
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){selectTab(t)});
+    t.addEventListener('keydown',function(e){
+      if(e.key==='ArrowRight'){selectTab(tabs[(i+1)%tabs.length]);e.preventDefault();}
+      if(e.key==='ArrowLeft'){selectTab(tabs[(i-1+tabs.length)%tabs.length]);e.preventDefault();}
+    });
+  });
+
+  /* Rule builder */
+  var ITEMS={
+    milk:{label:'🥛 Oat milk, unsweetened',attr:'unsweetened',opts:[
+      {i:'🥛',n:'Another brand, unsweetened',same:false,attr:true,d:0.50},
+      {i:'🥛',n:'Same brand, vanilla',same:true,attr:false,d:0},
+      {i:'🥛',n:'Store brand, unsweetened',same:false,attr:true,d:-1.20},
+      {i:'☕',n:'Barista blend, 32 oz',same:false,attr:false,d:1.80}]},
+    apples:{label:'🍎 Organic apples, 3 lb',attr:'organic',opts:[
+      {i:'🍏',n:'Organic Granny Smith, 3 lb',same:false,attr:true,d:1.40},
+      {i:'🍎',n:'Conventional apples, 3 lb',same:true,attr:false,d:-2.00},
+      {i:'🍎',n:'Organic apples, 2 lb bag',same:true,attr:true,d:-0.80}]},
+    coffee:{label:'☕ Whole bean coffee',attr:'whole bean',opts:[
+      {i:'☕',n:'Same brand, ground',same:true,attr:false,d:0},
+      {i:'☕',n:'Another brand, whole bean',same:false,attr:true,d:2.50},
+      {i:'☕',n:'Store brand, whole bean',same:false,attr:true,d:-3.00}]},
+    towels:{label:'🧻 Paper towels, 6 roll',attr:'6 rolls or more',opts:[
+      {i:'🧻',n:'Store brand, 6 roll',same:false,attr:true,d:-2.00},
+      {i:'🧻',n:'Same brand, 4 roll',same:true,attr:false,d:-2.50},
+      {i:'🧻',n:'Another brand, 8 roll',same:false,attr:true,d:1.50}]}
+  };
+  var RULES={
+    any:{label:'🤝 Any close match',text:function(){return 'Any close match is fine.'},ok:function(){return true}},
+    attr:{label:'🏷️ Keep the key attribute',text:function(it){return 'Keep it '+it.attr+'. If none, refund.'},ok:function(o){return o.attr}},
+    brand:{label:'⭐ This brand only',text:function(){return 'This brand only. If none, refund.'},ok:function(o){return o.same}},
+    price:{label:'💲 No more than $1 more',text:function(){return 'No more than $1 over the original.'},ok:function(o){return o.d<=1}},
+    refund:{label:'💸 Don’t replace, refund me',text:function(){return 'Don’t replace. Refund me.'},ok:function(){return false}}
+  };
+  var cur={item:'milk',rule:'attr'};
+  function chips(el,map,key){
+    el.innerHTML='';
+    Object.keys(map).forEach(function(k){
+      var b=document.createElement('button'); b.type='button'; b.textContent=map[k].label;
+      b.setAttribute('aria-pressed',String(cur[key]===k));
+      b.addEventListener('click',function(){cur[key]=k;render()});
+      el.appendChild(b);
+    });
+  }
+  function money(d){ if(d===0) return 'same price'; return (d>0?'+$':'−$')+Math.abs(d).toFixed(2); }
+  function render(){
+    chips(document.getElementById('items'),ITEMS,'item');
+    chips(document.getElementById('rules'),RULES,'rule');
+    var it=ITEMS[cur.item], ru=RULES[cur.rule], txt=ru.text(it);
+    document.getElementById('rule-text').textContent='Your rule: “'+txt+'”';
+    document.getElementById('ph-meta').textContent='Out of stock: '+it.label.replace(/^\S+\s/,'');
+    document.getElementById('ph-banner').textContent='📋 Customer rule: '+txt;
+    var box=document.getElementById('ph-opts'); box.innerHTML='';
+    var pick=null;
+    it.opts.forEach(function(o){
+      var ok=ru.ok(o); if(ok&&!pick) pick=o;
+      var row=document.createElement('div'); row.className='opt'+(ok?'':' no');
+      row.innerHTML='<span class="ico" aria-hidden="true">'+o.i+'</span><div><b></b><span></span></div>';
+      row.querySelector('b').textContent=o.n;
+      row.querySelector('div span').textContent=(ok?'✅ Matches rule':'🚫 Breaks rule')+', '+money(o.d);
+      box.appendChild(row);
+    });
+    var out=document.getElementById('ph-out');
+    if(pick){out.className='outcome';out.textContent='Scan: '+pick.n;}
+    else{out.className='outcome refund';out.textContent='💸 Refund issued, no messages needed';}
+  }
+  render();
+})();
+</script>
 </body>
 </html>
